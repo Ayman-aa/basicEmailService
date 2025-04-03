@@ -5,6 +5,12 @@ module.exports = {
     try {
       const { to, subject, template, context } = req.body;
       
+      if (!to || !subject || !template) {
+        return res.status(400).json({
+          success: false,
+          message: 'Missing required fields: to, subject, or template'
+        });
+      }
 
       const job = await emailQueue.add({
         to,
