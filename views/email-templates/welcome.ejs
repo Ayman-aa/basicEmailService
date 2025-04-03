@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= subject %></title>
+</head>
+<body>
+    <h1>Welcome, <%= user.name %>!</h1>
+    <p>Thank you for signing up to our service.</p>
+    <% if (user.verificationLink) { %>
+        <p>Please verify your email by clicking this link: 
+            <a href="<%= user.verificationLink %>">Verify Email</a>
+        </p>
+    <% } %>
+    <footer>
+        <p>Best regards,<br>The Team</p>
+    </footer>
+</body>
+</html>
