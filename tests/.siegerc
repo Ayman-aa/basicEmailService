@@ -1,0 +1,13 @@
+# Sample .siegerc file
+verbose = true
+quiet = false
+logging = true
+protocol = HTTP/1.1
+json_output = false
+show-logfile = true
+concurrent = 10
+time = 10s
+benchmark = false
+internet = false
+delay = 1
+timeout = 10

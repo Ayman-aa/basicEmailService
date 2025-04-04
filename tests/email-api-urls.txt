@@ -1,0 +1,3 @@
+POST http://localhost:3000/api/email/send
+Content-Type: application/json
+{"to":"test@example.com","subject":"Siege Test","body":"Testing with Siege","mockMode":true}
