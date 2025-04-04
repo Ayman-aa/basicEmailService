@@ -1,16 +1,30 @@
 const Queue = require('bull');
-const queueConfig = require('../config/queue');
-const emailJob = require('../jobs/emailJob');
+const config = require('../config/queue');
 
-const emailQueue = new Queue('email', {
-  redis: queueConfig.redis,
-  limiter: queueConfig.limiter
+const emailQueue = new Queue('email-queue', {
+  redis: config.redis,
+  defaultJobOptions: config.defaultJobOptions
 });
 
-emailQueue.process(emailJob.process);
+// Queue stats helper method for the worker manager
+emailQueue.getStats = async () => {
+  const [waiting, active, completed, failed] = await Promise.all([
+    emailQueue.getWaitingCount(),
+    emailQueue.getActiveCount(),
+    emailQueue.getCompletedCount(),
+    emailQueue.getFailedCount()
+  ]);
+  
+  return { waiting, active, completed, failed };
+};
 
-emailQueue.on('failed', (job, err) => {
-  console.error(`Job ${job.id} failed with error:`, err);
+// Add event handlers for queue-level events
+emailQueue.on('error', (error) => {
+  console.error('Email queue error:', error);
 });
 
-module.exports = emailQueue;
+emailQueue.on('stalled', (job) => {
+  console.warn(`Job ${job.id} has stalled`);
+});
+
+module.exports = { emailQueue };
