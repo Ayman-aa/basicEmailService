@@ -1,4 +1,4 @@
-I'm trying to build a tool like SendGrid ;<  
+I'm trying to build a tool like SendGrid (jk) ;<  
 yet I'm trying to break it into manageable parts, ignoring all practices.
 
 too lazy to write a commit message too motivated to write in readme:
